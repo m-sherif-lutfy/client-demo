@@ -1,8 +1,17 @@
 "use client";
+
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { Menu } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import {
+  Sheet,
+  SheetContent,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+  SheetClose,
+} from "@/components/ui/sheet";
 
 const links = [
   { href: "/", label: "Home" },
@@ -12,22 +21,46 @@ const links = [
   { href: "/contact", label: "Contact" },
 ];
 
+function NavLink({ href, label }: { href: string; label: string }) {
+  const pathname = usePathname();
+  const active = pathname === href;
+
+  return (
+    <Link
+      href={href}
+      className={[
+        "text-sm transition-colors",
+        active
+          ? "text-gray-900"
+          : "text-gray-600 hover:text-gray-900",
+        // subtle underline on hover
+        "relative after:absolute after:left-0 after:-bottom-1 after:h-0.5 after:w-0 after:bg-gray-900 after:transition-all hover:after:w-full",
+        active ? "after:w-full" : "",
+      ].join(" ")}
+      aria-current={active ? "page" : undefined}
+    >
+      {label}
+    </Link>
+  );
+}
+
 export default function SiteNavbar() {
   return (
-    <header className="sticky top-0 z-40 w-full border-b bg-white/70 backdrop-blur">
-      <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-3">
-        <Link href="/" className="font-semibold tracking-tight">
+    <header className="sticky top-0 z-40 w-full border-b bg-white/80 backdrop-blur-sm shadow-sm">
+      <div className="mx-auto flex max-w-6xl items-center justify-between px-6 md:px-8 py-3">
+        {/* Brand */}
+        <Link href="/" className="text-base font-semibold tracking-tight text-gray-900">
           Client Demo
         </Link>
 
-        <nav className="hidden gap-6 md:flex">
-          {links.map(l => (
-            <Link key={l.href} href={l.href} className="text-sm hover:opacity-80">
-              {l.label}
-            </Link>
+        {/* Desktop nav */}
+        <nav className="hidden items-center gap-7 md:flex">
+          {links.map((l) => (
+            <NavLink key={l.href} href={l.href} label={l.label} />
           ))}
         </nav>
 
+        {/* Mobile nav */}
         <div className="md:hidden">
           <Sheet>
             <SheetTrigger asChild>
@@ -35,14 +68,28 @@ export default function SiteNavbar() {
                 <Menu className="h-5 w-5" />
               </Button>
             </SheetTrigger>
-            <SheetContent side="right" className="pt-10">
-              <div className="grid gap-4">
-                {links.map(l => (
-                  <Link key={l.href} href={l.href} className="text-base">
-                    {l.label}
-                  </Link>
+
+            <SheetContent
+              side="right"
+              className="w-[85%] sm:w-[380px] px-6 pt-8"
+            >
+              {/* a11y title, visually hidden */}
+              <SheetHeader>
+                <SheetTitle className="sr-only">Main navigation</SheetTitle>
+              </SheetHeader>
+
+              <nav className="mt-4 grid gap-3">
+                {links.map((l) => (
+                  <SheetClose asChild key={l.href}>
+                    <Link
+                      href={l.href}
+                      className="text-lg text-gray-800 py-2"
+                    >
+                      {l.label}
+                    </Link>
+                  </SheetClose>
                 ))}
-              </div>
+              </nav>
             </SheetContent>
           </Sheet>
         </div>
