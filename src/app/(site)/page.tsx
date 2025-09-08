@@ -1,6 +1,12 @@
 import { Card, CardContent } from "@/components/ui/card";
 import WhatsAppCTA from "@/components/whatsapp-cta";
 
+export const metadata = {
+  title: "Home",
+  description: "A crisp 5-page structure showcasing your story, offerings, and contact.",
+  alternates: { canonical: "/" },
+};
+
 export default function HomePage() {
   return (
     <section className="grid gap-10">

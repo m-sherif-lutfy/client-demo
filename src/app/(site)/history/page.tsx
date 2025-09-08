@@ -1,3 +1,9 @@
+export const metadata = {
+  title: "History",
+  description: "Our milestones and how our process evolved to deliver quickly.",
+  alternates: { canonical: "/history" },
+};
+
 export default function HistoryPage() {
   const milestones = [
     { year: "2019", title: "Founding", body: "Started with small brochure sites for local businesses." },

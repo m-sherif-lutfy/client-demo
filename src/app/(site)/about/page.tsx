@@ -1,3 +1,9 @@
+export const metadata = {
+  title: "About",
+  description: "Who we are and how we ship reliable, fast, and accessible sites.",
+  alternates: { canonical: "/about" },
+};
+
 export default function AboutPage() {
   return (
     <section className="grid gap-10">

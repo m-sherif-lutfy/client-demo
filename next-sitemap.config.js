@@ -1,5 +1,5 @@
 /** @type {import('next-sitemap').IConfig} */
 module.exports = {
-  siteUrl: "https://your-demo.vercel.app", // temporary; we’ll replace after deploy
+  siteUrl: process.env.SITE_URL || process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000",
   generateRobotsTxt: true,
 };

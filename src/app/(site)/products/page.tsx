@@ -12,6 +12,11 @@ const products = [
   { id: "p-6", name: "Performance Pass", desc: "Perf/a11y audit with fixes to hit 90+.",            price: "$249",  image: "/products/performance-pass.png",alt: "Performance and a11y gauges" },
 ];
 
+export const metadata = {
+  title: "Products",
+  description: "Starter, Polished Demo, Showcase, and service add-ons.",
+  alternates: { canonical: "/products" },
+};
 
 export default function ProductsPage() {
   return (
